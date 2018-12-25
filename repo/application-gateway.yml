@@ -1,0 +1,87 @@
+#服务域名
+domain: domain
+
+server:
+  port: 8888
+spring:
+  application:
+    name: service-gateway
+
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/bskj?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${domain}:8000/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    #续约更新时间间隔是5秒，默认是30s
+    lease-renewal-interval-in-seconds: 5
+    #续约到期时间间隔是10s，默认是90s
+    lease-expiration-duration-in-seconds: 10
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+ribbon:
+  ReadTimeout: 5000
+  ConnectTimeout: 5000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+
+zuul:
+  hystrix:
+    command:
+      service-feign-system:
+        execution:
+          isolation:
+            thread:
+              timeoutInMilliseconds: 300000
+  ignored-services: '*'
+  host:
+    connect-timeout-millis: 300000
+    socket-timeout-millis: 300000
+  routes:
+    #系统
+    service-system:
+      path: /system/**
+      serviceId: service-feign-system
+      sensitiveHeaders: "*"
+
+    #请购
+    service-demand:
+      path: /purchase/**
+      serviceId: service-feign-purchase
+      sensitiveHeaders: "*"
+
+    #网关
+    service-gateway:
+      path: /gateway/**
+      serviceId: service-gateway
+      sensitiveHeaders: "*"
+
+    #工作流
+    service-activit:
+      path: /activiti/**
+      serviceId: service-feign-activiti
+      sensitiveHeraders: "*"
+
+
+logging:
+  config: classpath:logback.xml
+  level:
+    org:
+      springframework:
+        web: info
