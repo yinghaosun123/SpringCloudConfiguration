@@ -1,0 +1,81 @@
+domain: localhost
+
+server:
+  port: 8888
+spring:
+  application:
+    name: service-gateway
+
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/bskj?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${domain}:8000/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 10
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+ribbon:
+  ReadTimeout: 50000
+  ConnectTimeout: 50000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+
+zuul:
+  hystrix:
+    command:
+      service-feign-system:
+        execution:
+          isolation:
+            thread:
+              timeoutInMilliseconds: 3000000
+  ignored-services: '*'
+  host:
+    connect-timeout-millis: 3000000
+    socket-timeout-millis: 3000000
+  routes:
+
+    service-system:
+      path: /system/**
+      serviceId: service-feign-system
+      sensitiveHeaders: "*"
+
+    service-demand:
+      path: /purchase/**
+      serviceId: service-feign-purchase
+      sensitiveHeaders: "*"
+
+    service-gateway:
+      path: /gateway/**
+      serviceId: service-gateway
+      sensitiveHeaders: "*"
+
+    service-activit:
+      path: /activiti/**
+      serviceId: service-feign-activiti
+      sensitiveHeraders: "*"
+
+
+#logging:
+#  config: classpath:logback.xml
+#  level:
+#    org:
+#      springframework:
+#        web: info

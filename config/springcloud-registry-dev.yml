@@ -1,0 +1,17 @@
+domain: localhost
+
+server:
+  port: 8000
+eureka:
+  client:
+    fetch-registry: false
+    register-with-eureka: false
+    serviceUrl:
+      defaultZone: http://${domain}:8000/eureka
+
+#logging:
+#  config: classpath:logback.xml
+#  level:
+#    org:
+#      springframework:
+#        web: info

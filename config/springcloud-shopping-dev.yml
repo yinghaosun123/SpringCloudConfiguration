@@ -1,0 +1,43 @@
+domain: localhost
+
+server:
+  port: 8083
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${domain}:8000/eureka/
+
+spring:
+  datasource:
+    name: testmywarehouse
+    url: jdbc:mysql://127.0.0.1:3306/bskj?useSSL=false
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  application:
+    name: service-feign-purchase
+
+#logging:
+#  config: classpath:logback.xml
+#  level:
+#    org:
+#      springframework:
+#        web: info
+
+mybatis:
+  mapper-locations: classpath:mapping/*/*.xml
