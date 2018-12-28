@@ -1,3 +1,12 @@
+domain: localhost
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${domain}:8000/eureka/
+
+
+
 server:
   port: 8899
 spring:
@@ -11,9 +20,9 @@ spring:
 
 
 
-#logging:
-#  config: classpath:logback.xml
-#  level:
-#    org:
-#      springframework:
-#        web: info
+logging:
+ config: classpath:logback.xml
+ level:
+   org:
+     springframework:
+       web: info
