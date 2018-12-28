@@ -32,12 +32,12 @@ spring:
   application:
     name: service-feign-system
 
-#logging:
-#  config: classpath:logback.xml
-#  level:
-#    org:
-#      springframework:
-#        web: info
+logging:
+ config: classpath:logback.xml
+ level:
+   org:
+     springframework:
+       web: info
 
 mybatis:
   mapper-locations: classpath:mapping/*/*.xml
