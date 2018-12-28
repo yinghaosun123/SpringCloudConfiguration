@@ -35,14 +35,13 @@ spring:
     check-process-definitions: false
     process-definition-location-prefix: classpath:/processes/
 
-#logging:
-#  config: classpath:logback.xml
-#  level:
-#    org:
-#      springframework:
-#        web: info
+logging:
+ config: classpath:logback.xml
+ level:
+   org:
+     springframework:
+       web: info
 
 
 mybatis:
   mapper-locations: classpath:mapping/*.xml
-  type-aliases-package: com.bskj.system.model
