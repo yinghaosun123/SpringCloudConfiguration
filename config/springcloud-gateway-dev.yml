@@ -59,7 +59,7 @@ zuul:
 
     service-demand:
       path: /purchase/**
-      serviceId: service-feign-purchase
+      serviceId: service-feign-shopping
       sensitiveHeaders: "*"
 
     service-gateway:
@@ -73,9 +73,9 @@ zuul:
       sensitiveHeraders: "*"
 
 
-#logging:
-#  config: classpath:logback.xml
-#  level:
-#    org:
-#      springframework:
-#        web: info
+logging:
+ config: classpath:logback.xml
+ level:
+   org:
+     springframework:
+       web: info
