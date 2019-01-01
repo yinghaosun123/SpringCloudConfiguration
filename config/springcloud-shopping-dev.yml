@@ -11,7 +11,7 @@ eureka:
 spring:
   datasource:
     name: testmywarehouse
-    url: jdbc:mysql://127.0.0.1:3306/bskj?useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/xiangyang?useSSL=false
     username: root
     password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
